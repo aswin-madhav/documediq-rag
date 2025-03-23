@@ -2,8 +2,19 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from rag import run_pipeline, index_document
 import uuid
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class InsertRequest(BaseModel):
     content: str
